@@ -1,0 +1,5 @@
+# Configuration file for netconfigurator program.
+template_engine: jinja
+variable_source: file
+file_location: /etc/netconfig/input.yaml
+queue_name: netconfigurator
