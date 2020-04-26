@@ -1,3 +1,6 @@
+# Ignores the etc folder. Please force add files if required.
+etc/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
