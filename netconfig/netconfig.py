@@ -7,4 +7,28 @@ various modules/programs for abstracting away unnecessary complixity following O
 and other related Computer design patterns.
 """
 
+import configurator.configurator as configurator
+from templator import Templator
+from exception import *
 
+
+def main(config, tmpl_folder):
+    '''Main program.'''
+
+    try:
+        cnf = configurator.Configurator(config_file=config)
+        cnf_vars = cnf.get_conf_vars()
+        tmpl = Templator(config_vars=cnf_vars, tmpl_folder=tmpl_folder)
+        tmpl.create_conf()
+    except ConfiguratorError as ex_cnf:
+        print("Seems like a configuration error:\n", ex_cnf)
+    except TemplatorError as ex_tmpl:
+        print("Seems like a template error:\n", ex_tmpl)
+    except NetConfiguratorError as ex_netcnf:
+        print("Seems like a NetConfigurator error:\n", ex_netcnf)
+
+
+if __name__ == "__main__":
+    '''If invoked as a main program.'''
+
+    main("../etc/input.yaml", "../etc/")
