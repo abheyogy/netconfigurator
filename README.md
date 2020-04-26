@@ -11,12 +11,13 @@ Although, initially designed specifically with Nginx configurations in mind, thi
 
 Architecture
 ------------
-`
+
 - Command Line interface and if it makes sense, an API in future.
 - A module to fetch configuration files & variables.
 - A module to populate configuration variables to configuration files.
 - Customized exceptions.
-- Logger for logging & log levels.`````````
+- Logger for logging & log levels.
+
 
 ```
 +--------------+   +----------------------------------------+
@@ -39,7 +40,7 @@ Architecture
 |              |    |             |   |                     |
 |              |    |             |   |                     |
 +--------------+    +-------------+   +---------------------+
-
+```
 
 Try me out!
 -----------
@@ -51,12 +52,12 @@ If you wish to give this tool a try, please get your hands dirty ...
 * I am using PyEnv, or even plain old VirtualEnv shall suffice.
 * Please install the required packages as per the given command below:
   ```
-  $ pip install -r requirements.txt
-`
+    $ pip install -r requirements.txt
+  ```
 * Then cd into the netconfig folder to run the program:
   ```
-  $ python netconfig.py``
-
+    $ python netconfig.py
+  ```
 * Please make sure that you have either modified the path to the configuration
   file `input.yaml` in the netconfig.py file or have updated the same in the etc
   folder.
