@@ -22,6 +22,12 @@ server {
     server_name {{ name }};
     {% endfor %}
 
+    {% if '/' not in details['path_based_access_restriction'] %}
+    location / {
+      proxy_pass http://{{ app_name }};
+    }
+    {% endif %}
+
     {% for path, ips in details['path_based_access_restriction'].items() %}
     location {{ path }} {
         proxy_pass http://{{ app_name }};
