@@ -8,7 +8,6 @@ server {
         return 503;
     }
 }
-
 {% for app_name, details in app.items() %}
 
 upstream {{ app_name }} {
@@ -17,7 +16,6 @@ upstream {{ app_name }} {
 
 {% set port = catchall[details['catchall']]['port'] %}
 server {
-
     listen [::]:{{ port }};
     listen 0.0.0.0:{{ port }};
     {% for name in details['fqdn'] %}
@@ -28,55 +26,10 @@ server {
     location {{ path }} {
         proxy_pass http://{{ app_name }};
         {% for ipallowed in ipfilter[ips['ipfilter']] %}
-        allow {{ ipallowed }}
+        allow {{ ipallowed }};
         {% endfor %}
         deny all;
     }
     {% endfor %}
 }
 {% endfor %}
-
-{# Source sample, commented out
-upstream acceptance {
-    server 127.0.0.1:8000;
-}
-
-server {
-    listen [::]:7000;
-    listen 0.0.0.0:7000;
-    server_name myapp-accp.mendixcloud.com;
-    server_name accp.myapp.com;
-    location / {
-        proxy_pass http://acceptance;
-    }
-    location /public {
-        proxy_pass http://acceptance;
-        allow 0.0.0.0/0;
-        allow ::/0;
-        deny all;
-    }
-    allow 82.94.188.0/25;
-    allow 2001:888:2177::/48;
-    deny all;
-}
-
-upstream production {
-    server 127.0.0.1:8001;
-}
-
-server {
-    listen [::]:7000;
-    listen 0.0.0.0:7000;
-    server_name myapp.mendixcloud.com;
-    server_name myapp.com;
-    location / {
-        proxy_pass http://production;
-    }
-    location /secret {
-        proxy_pass http://production;
-        allow 82.94.188.0/25;
-        allow 2001:888:2177::/48;
-        deny all;
-    }
-}
-#}
